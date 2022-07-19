@@ -5,8 +5,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("HomePage"),
+      ),
+      body: Container(
+        color: Colors.amber,
+      ),
     );
   }
 }

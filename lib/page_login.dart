@@ -1,3 +1,4 @@
+import 'package:appwrite_phone_login/page_verification.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -32,7 +33,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const VerificationPage()));
+                  },
                   child: const Text("SEND"),
                 ),
               ),
