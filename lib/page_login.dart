@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               const SizedBox(
                 height: 54,
-              ),
+              ),1
               const Text(
                 "Phone number:",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -34,11 +34,8 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const VerificationPage()));
-                  },
+                    context.pushNamed(Approute)
+                                      },
                   child: const Text("SEND"),
                 ),
               ),
