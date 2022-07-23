@@ -1,3 +1,4 @@
+import 'package:appwrite_phone_login/app_router.dart';
 import 'package:appwrite_phone_login/page_verification.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               const SizedBox(
                 height: 54,
-              ),1
+              ),
               const Text(
                 "Phone number:",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -34,8 +35,8 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 child: ElevatedButton(
                   onPressed: () {
-                    context.pushNamed(Approute)
-                                      },
+                    Navigator.of(context).pushNamed(AppRoutes.verificationPage);
+                  },
                   child: const Text("SEND"),
                 ),
               ),

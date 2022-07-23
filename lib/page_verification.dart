@@ -1,4 +1,4 @@
-import 'package:appwrite_phone_login/page_home.dart';
+import 'package:appwrite_phone_login/app_router.dart';
 import 'package:flutter/material.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -35,10 +35,7 @@ class _VerificationPageState extends State<VerificationPage> {
             SizedBox(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomePage()));
+                  Navigator.of(context).pushNamed(AppRoutes.homePage);
                 },
                 child: const Text("VERIFY"),
               ),

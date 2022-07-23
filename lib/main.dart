@@ -1,5 +1,4 @@
 import 'package:appwrite_phone_login/app_router.dart';
-import 'package:appwrite_phone_login/page_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      initialRoute: AppRoutes.loginPage,
       onGenerateRoute: ((settings) => AppRouter.onGenerateRoute(settings)),
     );
   }
