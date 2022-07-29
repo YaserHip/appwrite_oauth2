@@ -1,16 +1,18 @@
 import 'package:appwrite_phone_login/app_router.dart';
-import 'package:appwrite_phone_login/page_verification.dart';
+import 'package:appwrite_phone_login/login_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
+class LoginPage extends ConsumerWidget {
+  LoginPage({Key? key}) : super(key: key);
 
-class _LoginPageState extends State<LoginPage> {
+  final _phoneController = TextEditingController();
+
+  String get phone => _phoneController.text;
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(loginControllerProvider);
     return Scaffold(
         appBar: AppBar(title: const Text("Login with phone")),
         body: SingleChildScrollView(
