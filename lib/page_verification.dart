@@ -1,14 +1,20 @@
 import 'package:appwrite_phone_login/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class VerificationPage extends StatefulWidget {
+class VerificationPage extends ConsumerStatefulWidget {
   const VerificationPage({Key? key}) : super(key: key);
 
   @override
-  State<VerificationPage> createState() => _VerificationPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _VerificationPageState();
 }
 
-class _VerificationPageState extends State<VerificationPage> {
+class _VerificationPageState extends ConsumerState<VerificationPage> {
+  final _codeController = TextEditingController();
+
+  String get code => _codeController.text;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
