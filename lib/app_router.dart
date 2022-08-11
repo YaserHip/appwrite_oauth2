@@ -20,7 +20,7 @@ class AppRouter {
         );
       case AppRoutes.loginPage:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => LoginPage(),
+          builder: (_) => const LoginPage(),
           settings: settings,
         );
       case AppRoutes.verificationPage:

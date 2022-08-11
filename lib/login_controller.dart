@@ -1,3 +1,4 @@
+import 'package:appwrite/models.dart';
 import 'package:appwrite_phone_login/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,16 +7,25 @@ class LoginController extends StateNotifier<AsyncValue<void>> {
       : super(const AsyncData(null));
   final AuthRepository authRepository;
 
-  Future<void> phoneSession(String userId, String number) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(
-        () => authRepository.phoneSession(userId, number));
+  Future<void> phoneSession(
+      {required String userId, required String number}) async {
+    try {
+      state = const AsyncLoading();
+      final value = await authRepository.phoneSession(userId, number);
+      state = AsyncData(value);
+    } on Error catch (e) {
+      state = AsyncError(e);
+    }
   }
 
   Future<void> phoneSessionConfirmation(String secret) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(
-        () => authRepository.phoneSessionConfirmation(secret));
+    try {
+      state = const AsyncLoading();
+      final value = authRepository.phoneSessionConfirmation(secret);
+      state = AsyncData(value);
+    } on Error catch (e) {
+      state = AsyncError(e);
+    }
   }
 }
 

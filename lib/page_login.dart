@@ -14,8 +14,6 @@ class LoginPage extends ConsumerStatefulWidget {
 class _LoginPageState extends ConsumerState<LoginPage> {
   final _phoneController = TextEditingController();
 
-  String get phone => _phoneController.text;
-
   @override
   void dispose() {
     _phoneController.dispose();
@@ -25,45 +23,53 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(loginControllerProvider);
+
     return Scaffold(
       appBar: AppBar(title: const Text("Login with phone")),
-      body: StateManager(
-          isLoading: state.isLoading,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 54,
-                ),
-                const Text(
-                  "Phone number:",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                TextField(
-                  controller: _phoneController,
-                  keyboardType: TextInputType.phone,
-                  textInputAction: TextInputAction.send,
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                SizedBox(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      ref
-                          .read(loginControllerProvider.notifier)
-                          .phoneSession("unique()", _phoneController.text);
-                      Navigator.of(context)
-                          .pushNamed(AppRoutes.verificationPage);
-                    },
-                    child: const Text("SEND"),
-                  ),
-                ),
-              ],
+      body: SingleChildScrollView(
+          child: Column(
+        children: [
+          const SizedBox(
+            height: 54,
+          ),
+          const Text(
+            "Phone number:",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          TextField(
+            controller: _phoneController,
+            keyboardType: TextInputType.phone,
+            textInputAction: TextInputAction.send,
+            decoration:
+                InputDecoration(labelText: 'Phone', enabled: !state.isLoading),
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          SizedBox(
+            child: ElevatedButton(
+              onPressed: () {
+                state.isLoading
+                    ? null
+                    : ref.read(loginControllerProvider.notifier).phoneSession(
+                        userId: 'unique()', number: _phoneController.text);
+              },
+              child: state.isLoading
+                  ? const CircularProgressIndicator()
+                  : const Text("SEND"),
             ),
-          )),
+          ),
+          state.maybeWhen(
+            data: (data) {
+              Navigator.pushNamed(context, AppRoutes.verificationPage);
+              return Container();
+            },
+            orElse: () {
+              return Container();
+            },
+          )
+        ],
+      )),
     );
   }
 }
