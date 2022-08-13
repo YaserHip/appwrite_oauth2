@@ -8,6 +8,10 @@ class AuthRepository {
   final Account account;
   var userId = '';
 
+  Future<void> oAuth2Session(String provider) async {
+    return await account.createOAuth2Session(provider: provider);
+  }
+
   Future<Token> phoneSession(String userId, String number) async {
     userId = userId;
     return await account.createPhoneSession(userId: userId, number: number);

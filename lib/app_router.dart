@@ -1,7 +1,6 @@
 import 'package:appwrite_phone_login/page_home.dart';
-import 'package:appwrite_phone_login/page_login.dart';
+import 'package:appwrite_phone_login/login/page_login.dart';
 import 'package:appwrite_phone_login/page_verification.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {

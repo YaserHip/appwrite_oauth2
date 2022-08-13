@@ -1,6 +1,5 @@
 import 'package:appwrite_phone_login/app_router.dart';
-import 'package:appwrite_phone_login/login_controller.dart';
-import 'package:appwrite_phone_login/state_manager_widget.dart';
+import 'package:appwrite_phone_login/login/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
