@@ -22,53 +22,51 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(loginControllerProvider);
+    final nav = Navigator.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Login with phone")),
-      body: SingleChildScrollView(
-          child: Column(
-        children: [
-          const SizedBox(
-            height: 54,
-          ),
-          const Text(
-            "Phone number:",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-          TextField(
-            controller: _phoneController,
-            keyboardType: TextInputType.phone,
-            textInputAction: TextInputAction.send,
-            decoration:
-                InputDecoration(labelText: 'Phone', enabled: !state.isLoading),
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-          SizedBox(
-            child: ElevatedButton(
-              onPressed: () {
-                state.isLoading
-                    ? null
-                    : ref.read(loginControllerProvider.notifier).phoneSession(
-                        userId: 'unique()', number: _phoneController.text);
-              },
-              child: state.isLoading
-                  ? const CircularProgressIndicator()
-                  : const Text("SEND"),
-            ),
-          ),
-          state.maybeWhen(
-            data: (data) {
-              Navigator.pushNamed(context, AppRoutes.verificationPage);
-              return Container();
-            },
-            orElse: () {
-              return Container();
-            },
-          )
-        ],
-      )),
-    );
+        appBar: AppBar(title: const Text("Login with phone")),
+        body: Center(
+          child: state.isLoading
+              ? const CircularProgressIndicator()
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ElevatedButton(
+                      child: const Text("Facebook"),
+                      onPressed: () async {
+                        final success = await ref
+                            .read(loginControllerProvider.notifier)
+                            .oAuth2Session("facebook");
+                        if (success) {
+                          nav.pushNamed(AppRoutes.homePage);
+                        }
+                      },
+                    ),
+                    ElevatedButton(
+                      child: const Text("Google"),
+                      onPressed: () async {
+                        final success = await ref
+                            .read(loginControllerProvider.notifier)
+                            .oAuth2Session("google");
+                        if (success) {
+                          nav.pushNamed(AppRoutes.homePage);
+                        }
+                      },
+                    ),
+                    ElevatedButton(
+                      child: const Text("Auth0"),
+                      onPressed: () async {
+                        final success = await ref
+                            .read(loginControllerProvider.notifier)
+                            .oAuth2Session("auth0");
+                        if (success) {
+                          nav.pushNamed(AppRoutes.homePage);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+        ));
   }
 }

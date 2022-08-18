@@ -6,7 +6,7 @@ class LoginController extends StateNotifier<AsyncValue<void>> {
       : super(const AsyncData(null));
   final AuthRepository authRepository;
 
-  Future<void> oAuth2Session(String provider) async {
+  Future<bool> oAuth2Session(String provider) async {
     try {
       state = const AsyncLoading();
       final value = await authRepository.oAuth2Session(provider);
@@ -14,27 +14,7 @@ class LoginController extends StateNotifier<AsyncValue<void>> {
     } on Error catch (e) {
       state = AsyncError(e);
     }
-  }
-
-  Future<void> phoneSession(
-      {required String userId, required String number}) async {
-    try {
-      state = const AsyncLoading();
-      final value = await authRepository.phoneSession(userId, number);
-      state = AsyncData(value);
-    } on Error catch (e) {
-      state = AsyncError(e);
-    }
-  }
-
-  Future<void> phoneSessionConfirmation(String secret) async {
-    try {
-      state = const AsyncLoading();
-      final value = authRepository.phoneSessionConfirmation(secret);
-      state = AsyncData(value);
-    } on Error catch (e) {
-      state = AsyncError(e);
-    }
+    return state.hasError == false;
   }
 }
 

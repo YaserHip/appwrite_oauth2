@@ -52,9 +52,6 @@ class _VerificationPageState extends ConsumerState<VerificationPage> {
                 SizedBox(
                   child: ElevatedButton(
                     onPressed: () {
-                      ref
-                          .read(loginControllerProvider.notifier)
-                          .phoneSessionConfirmation(_codeController.text);
                       Navigator.of(context).pushNamed(AppRoutes.homePage);
                     },
                     child: const Text("VERIFY"),
