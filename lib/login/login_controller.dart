@@ -11,7 +11,7 @@ class LoginController extends StateNotifier<AsyncValue<void>> {
       state = const AsyncLoading();
       final value = await authRepository.oAuth2Session(provider);
       state = AsyncData(value);
-    } on Error catch (e) {
+    } on Exception catch (e) {
       state = AsyncError(e);
     }
     return state.hasError == false;

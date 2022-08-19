@@ -7,7 +7,7 @@ class AuthRepository {
   final Account account;
 
   Future<void> oAuth2Session(String provider) async {
-    return await account.createOAuth2Session(provider: provider);
+    await account.createOAuth2Session(provider: provider);
   }
 }
 
